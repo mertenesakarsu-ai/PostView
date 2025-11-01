@@ -409,9 +409,9 @@ const Dashboard = () => {
       )}
 
       {/* Story View */}
-      {showStoryView && posts.length > 0 && (
+      {showStoryView && currentPosts.length > 0 && (
         <StoryView
-          posts={posts}
+          posts={currentPosts}
           onClose={() => {
             setShowStoryView(false);
             setViewMode('grid');
