@@ -96,12 +96,12 @@ const MobilePreview = ({ posts, onClose }) => {
           </ScrollArea>
 
           {/* Bottom Navigation */}
-          <div className="bg-black border-t border-gray-800 px-8 py-2 flex items-center justify-between">
-            <Home className="w-6 h-6 text-white" />
-            <Search className="w-6 h-6 text-gray-500" />
-            <PlusSquare className="w-6 h-6 text-gray-500" />
-            <PlayCircle className="w-6 h-6 text-gray-500" />
-            <User className="w-6 h-6 text-gray-500" />
+          <div className="bg-black border-t border-gray-800 px-10 py-3 flex items-center justify-between">
+            <Home className="w-7 h-7 text-white" />
+            <Search className="w-7 h-7 text-gray-500" />
+            <PlusSquare className="w-7 h-7 text-gray-500" />
+            <PlayCircle className="w-7 h-7 text-gray-500" />
+            <User className="w-7 h-7 text-gray-500" />
           </div>
         </div>
       </div>
