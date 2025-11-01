@@ -318,6 +318,16 @@ const Dashboard = () => {
         </div>
       </header>
 
+      {/* Upload Notification Toast */}
+      {uploadNotification && (
+        <div className="fixed top-24 right-6 z-50 animate-in slide-in-from-top">
+          <div className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 border border-green-400/30">
+            <div className="text-2xl">✅</div>
+            <div className="font-semibold">{uploadNotification.message}</div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* View Mode Tabs */}
