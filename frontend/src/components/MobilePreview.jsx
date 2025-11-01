@@ -40,42 +40,42 @@ const MobilePreview = ({ posts, onClose }) => {
 
           {/* Profile Section */}
           <ScrollArea className="h-[calc(900px-180px)] bg-black">
-            <div className="px-4 py-4 border-b border-gray-800">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 p-0.5">
-                    <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-2xl">
+            <div className="px-5 py-5 border-b border-gray-800">
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-5">
+                  <div className="w-24 h-24 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 p-0.5">
+                    <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-3xl">
                       🚤
                     </div>
                   </div>
                   <div>
-                    <h2 className="text-white font-semibold text-sm">queenatlantisyacht</h2>
-                    <p className="text-gray-400 text-xs">Queen Atlantis Yacht</p>
+                    <h2 className="text-white font-semibold text-base">queenatlantisyacht</h2>
+                    <p className="text-gray-400 text-sm mt-1">Queen Atlantis Yacht</p>
                   </div>
                 </div>
               </div>
-              <div className="flex gap-8 mb-3">
+              <div className="flex gap-10 mb-4">
                 <div className="text-center">
-                  <div className="text-white font-semibold">{posts.length}</div>
-                  <div className="text-gray-400 text-xs">posts</div>
+                  <div className="text-white font-semibold text-lg">{posts.length}</div>
+                  <div className="text-gray-400 text-sm">posts</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-white font-semibold">59</div>
-                  <div className="text-gray-400 text-xs">followers</div>
+                  <div className="text-white font-semibold text-lg">59</div>
+                  <div className="text-gray-400 text-sm">followers</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-white font-semibold">44</div>
-                  <div className="text-gray-400 text-xs">following</div>
+                  <div className="text-white font-semibold text-lg">44</div>
+                  <div className="text-gray-400 text-sm">following</div>
                 </div>
               </div>
-              <p className="text-white text-xs leading-relaxed">
+              <p className="text-white text-sm leading-relaxed">
                 📍 Based in Fethiye/Turkey<br />
                 Embark on luxury adventures aboard our 36m charter motor sailor! 🛥️ ⛵
               </p>
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-3 gap-0.5">
+            <div className="grid grid-cols-3 gap-1">
               {posts.map((post) => (
                 <div key={post.id} className="aspect-square bg-gray-900 relative group">
                   <img
@@ -85,7 +85,7 @@ const MobilePreview = ({ posts, onClose }) => {
                   />
                   {post.caption && (
                     <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity p-2 flex items-center justify-center">
-                      <p className="text-white text-[8px] line-clamp-6 text-center">
+                      <p className="text-white text-[9px] line-clamp-6 text-center">
                         {post.caption}
                       </p>
                     </div>
