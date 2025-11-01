@@ -175,35 +175,6 @@ const Dashboard = () => {
       setSelectedPost({ ...selectedPost, caption: newCaption });
     }
   };
-        imageData = URL.createObjectURL(file);
-      }
-
-      return {
-        id: Date.now() + index,
-        image: imageData,
-        caption: '',
-        views: Math.floor(Math.random() * 1000),
-        isVideo: file.type.startsWith('video/')
-      };
-    });
-
-    const newPosts = await Promise.all(newPostsPromises);
-    setPosts([...newPosts, ...posts]);
-  };
-
-  const handleReorder = (newPosts) => {
-    setPosts(newPosts);
-  };
-
-  const handleCaptionUpdate = (postId, newCaption) => {
-    setPosts(posts.map(post => 
-      post.id === postId ? { ...post, caption: newCaption } : post
-    ));
-    if (selectedPost?.id === postId) {
-      setSelectedPost({ ...selectedPost, caption: newCaption });
-    }
-  };
-
   const handleSelectPost = (post) => {
     setSelectedPost(post);
     setShowPostDetail(true);
@@ -217,7 +188,67 @@ const Dashboard = () => {
   };
 
   const handleDeletePost = (postId) => {
-    setPosts(posts.filter(post => post.id !== postId));
+    if (viewMode === 'grid') {
+      setGridPosts(gridPosts.filter(post => post.id !== postId));
+    } else if (viewMode === 'reels') {
+      setReelsPosts(reelsPosts.filter(post => post.id !== postId));
+    } else if (viewMode === 'story') {
+      setStoryPosts(storyPosts.filter(post => post.id !== postId));
+    }
+    
+    if (selectedPost?.id === postId) {
+      setSelectedPost(null);
+    }
+  };
+
+  const handleExport = () => {
+    const allData = {
+      grid: gridPosts,
+      reels: reelsPosts,
+      story: storyPosts
+    };
+    const dataStr = JSON.stringify(allData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'postview-export.json';
+    link.click();
+  };
+
+  const handleImport = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const importedData = JSON.parse(event.target.result);
+          // Check if it's the new format with separate arrays
+          if (importedData.grid || importedData.reels || importedData.story) {
+            if (importedData.grid) setGridPosts(importedData.grid);
+            if (importedData.reels) setReelsPosts(importedData.reels);
+            if (importedData.story) setStoryPosts(importedData.story);
+          } else {
+            // Old format - import to grid
+            setGridPosts(importedData);
+          }
+        } catch (error) {
+          alert('Geçersiz JSON dosyası');
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  // Get current posts based on view mode
+  const getCurrentPosts = () => {
+    if (viewMode === 'grid') return gridPosts;
+    if (viewMode === 'reels') return reelsPosts;
+    if (viewMode === 'story') return storyPosts;
+    return [];
+  };
+
+  const currentPosts = getCurrentPosts();
     if (selectedPost?.id === postId) {
       setSelectedPost(null);
     }
