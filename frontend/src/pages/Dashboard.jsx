@@ -35,6 +35,7 @@ const Dashboard = () => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid', 'reels', 'story'
   const [showStoryView, setShowStoryView] = useState(false);
   const [showPostDetail, setShowPostDetail] = useState(false);
+  const [uploadNotification, setUploadNotification] = useState(null);
 
   // Save grid posts to localStorage
   useEffect(() => {
