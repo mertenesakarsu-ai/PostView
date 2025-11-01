@@ -257,9 +257,9 @@ const Dashboard = () => {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img 
-              src="https://customer-assets.emergentagent.com/job_5c404b43-a2fd-401c-ad01-c17484d2e425/artifacts/2t21br76_postview.png" 
+              src="https://customer-assets.emergentagent.com/job_design-adder/artifacts/sp6zpy92_postview.png" 
               alt="PostView Logo" 
-              className="h-12 w-auto object-contain"
+              className="h-20 w-auto object-contain"
             />
           </div>
           <div className="flex items-center gap-3">
