@@ -5,41 +5,41 @@ import { ScrollArea } from './ui/scroll-area';
 
 const MobilePreview = ({ posts, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="relative">
         {/* Close Button */}
         <Button
           onClick={onClose}
           variant="ghost"
           size="icon"
-          className="absolute -top-12 right-0 text-white hover:bg-white/20"
+          className="absolute -top-14 right-0 text-white hover:bg-white/20 z-10"
         >
-          <X className="w-6 h-6" />
+          <X className="w-8 h-8" />
         </Button>
 
-        {/* Mobile Frame */}
-        <div className="w-[375px] h-[667px] bg-black rounded-[3rem] border-[14px] border-gray-900 shadow-2xl overflow-hidden">
+        {/* Mobile Frame - Larger Size */}
+        <div className="w-[450px] h-[900px] bg-black rounded-[3rem] border-[14px] border-gray-900 shadow-2xl overflow-hidden">
           {/* Status Bar */}
-          <div className="bg-black px-6 py-2 flex items-center justify-between text-white text-xs">
+          <div className="bg-black px-6 py-3 flex items-center justify-between text-white text-sm">
             <span className="font-semibold">9:41</span>
             <div className="flex items-center gap-1">
-              <div className="w-4 h-3 border border-white rounded-sm" />
-              <div className="w-4 h-3 border border-white rounded-sm" />
-              <div className="w-4 h-3 bg-white rounded-sm" />
+              <div className="w-5 h-4 border border-white rounded-sm" />
+              <div className="w-5 h-4 border border-white rounded-sm" />
+              <div className="w-5 h-4 bg-white rounded-sm" />
             </div>
           </div>
 
           {/* Instagram Header */}
-          <div className="bg-black border-b border-gray-800 px-4 py-3 flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-white" style={{ fontFamily: 'cursive' }}>Instagram</h1>
-            <div className="flex items-center gap-3">
-              <Heart className="w-6 h-6 text-white" />
-              <MessageCircle className="w-6 h-6 text-white" />
+          <div className="bg-black border-b border-gray-800 px-5 py-4 flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-white" style={{ fontFamily: 'cursive' }}>Instagram</h1>
+            <div className="flex items-center gap-4">
+              <Heart className="w-7 h-7 text-white" />
+              <MessageCircle className="w-7 h-7 text-white" />
             </div>
           </div>
 
           {/* Profile Section */}
-          <ScrollArea className="h-[calc(667px-140px)] bg-black">
+          <ScrollArea className="h-[calc(900px-180px)] bg-black">
             <div className="px-4 py-4 border-b border-gray-800">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-4">
