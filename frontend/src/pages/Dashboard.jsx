@@ -193,9 +193,9 @@ const Dashboard = () => {
 
   const handleViewModeChange = (mode) => {
     setViewMode(mode);
-    if (mode === 'story') {
-      setShowStoryView(true);
-    } else {
+    // Story view sadece kullanıcı preview butonuna tıkladığında açılacak
+    // Otomatik açılmayı kaldırdık
+    if (mode !== 'story') {
       setShowStoryView(false);
     }
   };
