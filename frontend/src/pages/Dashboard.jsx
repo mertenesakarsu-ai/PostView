@@ -23,18 +23,57 @@ const Dashboard = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
   }, [posts]);
 
+  const compressImage = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', 0.7));
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleUpload = async (files) => {
     const newPostsPromises = files.map(async (file, index) => {
-      // Convert file to base64 for localStorage
-      const base64 = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(file);
-      });
+      let imageData;
+      
+      if (file.type.startsWith('image/')) {
+        // Compress images
+        imageData = await compressImage(file);
+      } else {
+        // For videos, just create object URL (not stored in localStorage)
+        imageData = URL.createObjectURL(file);
+      }
 
       return {
         id: Date.now() + index,
-        image: base64,
+        image: imageData,
         caption: '',
         views: Math.floor(Math.random() * 1000),
         isVideo: file.type.startsWith('video/')
