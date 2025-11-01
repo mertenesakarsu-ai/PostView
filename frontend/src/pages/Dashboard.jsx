@@ -23,14 +23,25 @@ const Dashboard = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
   }, [posts]);
 
-  const handleUpload = (files) => {
-    const newPosts = files.map((file, index) => ({
-      id: Date.now() + index,
-      image: URL.createObjectURL(file),
-      caption: '',
-      views: Math.floor(Math.random() * 1000),
-      isVideo: file.type.startsWith('video/')
-    }));
+  const handleUpload = async (files) => {
+    const newPostsPromises = files.map(async (file, index) => {
+      // Convert file to base64 for localStorage
+      const base64 = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
+
+      return {
+        id: Date.now() + index,
+        image: base64,
+        caption: '',
+        views: Math.floor(Math.random() * 1000),
+        isVideo: file.type.startsWith('video/')
+      };
+    });
+
+    const newPosts = await Promise.all(newPostsPromises);
     setPosts([...newPosts, ...posts]);
   };
 
