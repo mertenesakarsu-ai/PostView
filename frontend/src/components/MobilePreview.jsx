@@ -76,7 +76,7 @@ const MobilePreview = ({ posts, onClose }) => {
             </div>
 
             {/* Grid - Instagram exact proportions */}
-            <div className="grid grid-cols-3 bg-[#262626]" style={{ gap: '2px' }}>
+            <div className="grid grid-cols-3 bg-[#262626]" style={{ gap: '1px' }}>
               {posts.map((post) => (
                 <div key={post.id} className="aspect-square bg-black relative group overflow-hidden">
                   <img
