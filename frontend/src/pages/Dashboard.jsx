@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Upload, Grid3x3, Smartphone, Download, Trash2 } from 'lucide-react';
 import UploadArea from '../components/UploadArea';
 import GridView from '../components/GridView';
@@ -7,10 +7,21 @@ import MobilePreview from '../components/MobilePreview';
 import { Button } from '../components/ui/button';
 import { mockPosts } from '../mock';
 
+const STORAGE_KEY = 'instagram_grid_posts';
+
 const Dashboard = () => {
-  const [posts, setPosts] = useState(mockPosts);
+  // Load posts from localStorage or use mock data
+  const [posts, setPosts] = useState(() => {
+    const savedPosts = localStorage.getItem(STORAGE_KEY);
+    return savedPosts ? JSON.parse(savedPosts) : mockPosts;
+  });
   const [selectedPost, setSelectedPost] = useState(null);
   const [showMobilePreview, setShowMobilePreview] = useState(false);
+
+  // Save posts to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+  }, [posts]);
 
   const handleUpload = (files) => {
     const newPosts = files.map((file, index) => ({
