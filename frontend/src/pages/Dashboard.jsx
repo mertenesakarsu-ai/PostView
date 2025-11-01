@@ -305,6 +305,29 @@ const Dashboard = () => {
           onClose={() => setShowMobilePreview(false)}
         />
       )}
+
+      {/* Post Detail Modal */}
+      {showPostDetail && selectedPost && (
+        <PostDetailModal
+          post={selectedPost}
+          onClose={() => {
+            setShowPostDetail(false);
+            setSelectedPost(null);
+          }}
+          onUpdateCaption={handleCaptionUpdate}
+        />
+      )}
+
+      {/* Story View */}
+      {showStoryView && posts.length > 0 && (
+        <StoryView
+          posts={posts}
+          onClose={() => {
+            setShowStoryView(false);
+            setViewMode('grid');
+          }}
+        />
+      )}
     </div>
   );
 };
