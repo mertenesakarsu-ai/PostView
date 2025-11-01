@@ -351,13 +351,17 @@ const Dashboard = () => {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-500">Toplam Gönderi</span>
-                  <span className="font-semibold text-pink-400">{posts.length}</span>
+                  <span className="font-semibold text-pink-400">{currentPosts.length}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Açıklamalı</span>
                   <span className="font-semibold text-purple-400">
-                    {posts.filter(p => p.caption).length}
+                    {currentPosts.filter(p => p.caption).length}
                   </span>
+                </div>
+                <div className="flex justify-between pt-2 border-t border-gray-800">
+                  <span className="text-gray-500 text-xs">Görünüm Modu</span>
+                  <span className="font-semibold text-blue-400 text-xs uppercase">{viewMode}</span>
                 </div>
               </div>
             </div>
@@ -367,7 +371,7 @@ const Dashboard = () => {
           <div className="lg:col-span-9">
             {viewMode === 'grid' && (
               <GridView
-                posts={posts}
+                posts={currentPosts}
                 onReorder={handleReorder}
                 onSelectPost={handleSelectPost}
                 selectedPost={selectedPost}
@@ -376,7 +380,7 @@ const Dashboard = () => {
             )}
             {viewMode === 'reels' && (
               <ReelsView
-                posts={posts}
+                posts={currentPosts}
                 onSelectPost={handleSelectPost}
               />
             )}
@@ -387,7 +391,7 @@ const Dashboard = () => {
       {/* Mobile Preview Modal */}
       {showMobilePreview && (
         <MobilePreview
-          posts={posts}
+          posts={currentPosts}
           onClose={() => setShowMobilePreview(false)}
         />
       )}
