@@ -136,6 +136,58 @@ const Dashboard = () => {
     });
 
     const newPosts = await Promise.all(newPostsPromises);
+    
+    // Add to the appropriate posts array based on current view mode
+    if (viewMode === 'grid') {
+      setGridPosts([...newPosts, ...gridPosts]);
+    } else if (viewMode === 'reels') {
+      setReelsPosts([...newPosts, ...reelsPosts]);
+    } else if (viewMode === 'story') {
+      setStoryPosts([...newPosts, ...storyPosts]);
+    }
+  };
+
+  const handleReorder = (newPosts) => {
+    if (viewMode === 'grid') {
+      setGridPosts(newPosts);
+    } else if (viewMode === 'reels') {
+      setReelsPosts(newPosts);
+    } else if (viewMode === 'story') {
+      setStoryPosts(newPosts);
+    }
+  };
+
+  const handleCaptionUpdate = (postId, newCaption) => {
+    const updatePosts = (posts) => 
+      posts.map(post => 
+        post.id === postId ? { ...post, caption: newCaption } : post
+      );
+
+    if (viewMode === 'grid') {
+      setGridPosts(updatePosts(gridPosts));
+    } else if (viewMode === 'reels') {
+      setReelsPosts(updatePosts(reelsPosts));
+    } else if (viewMode === 'story') {
+      setStoryPosts(updatePosts(storyPosts));
+    }
+
+    if (selectedPost?.id === postId) {
+      setSelectedPost({ ...selectedPost, caption: newCaption });
+    }
+  };
+        imageData = URL.createObjectURL(file);
+      }
+
+      return {
+        id: Date.now() + index,
+        image: imageData,
+        caption: '',
+        views: Math.floor(Math.random() * 1000),
+        isVideo: file.type.startsWith('video/')
+      };
+    });
+
+    const newPosts = await Promise.all(newPostsPromises);
     setPosts([...newPosts, ...posts]);
   };
 
