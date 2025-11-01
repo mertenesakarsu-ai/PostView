@@ -9,41 +9,74 @@ import MobilePreview from '../components/MobilePreview';
 import { Button } from '../components/ui/button';
 import { mockPosts } from '../mock';
 
-const STORAGE_KEY = 'instagram_grid_posts';
+const STORAGE_KEY_GRID = 'postview_grid_posts';
+const STORAGE_KEY_REELS = 'postview_reels_posts';
+const STORAGE_KEY_STORY = 'postview_story_posts';
 
 const Dashboard = () => {
-  // Load posts from localStorage or use mock data
-  const [posts, setPosts] = useState(() => {
-    const savedPosts = localStorage.getItem(STORAGE_KEY);
-    return savedPosts ? JSON.parse(savedPosts) : mockPosts;
+  // Load posts from localStorage - separate for each view mode
+  const [gridPosts, setGridPosts] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY_GRID);
+    return saved ? JSON.parse(saved) : mockPosts;
   });
+  
+  const [reelsPosts, setReelsPosts] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY_REELS);
+    return saved ? JSON.parse(saved) : [];
+  });
+  
+  const [storyPosts, setStoryPosts] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY_STORY);
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const [selectedPost, setSelectedPost] = useState(null);
   const [showMobilePreview, setShowMobilePreview] = useState(false);
   const [viewMode, setViewMode] = useState('grid'); // 'grid', 'reels', 'story'
   const [showStoryView, setShowStoryView] = useState(false);
   const [showPostDetail, setShowPostDetail] = useState(false);
 
-  // Save posts to localStorage whenever they change
+  // Save grid posts to localStorage
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+      localStorage.setItem(STORAGE_KEY_GRID, JSON.stringify(gridPosts));
     } catch (error) {
       if (error.name === 'QuotaExceededError') {
-        console.warn('localStorage quota exceeded. Keeping only last 20 posts.');
-        // Keep only the most recent 20 posts
-        const reducedPosts = posts.slice(0, 20);
-        setPosts(reducedPosts);
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(reducedPosts));
-        } catch (e) {
-          console.error('Still unable to save to localStorage:', e);
-          // Clear localStorage and save reduced set
-          localStorage.removeItem(STORAGE_KEY);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(reducedPosts));
-        }
+        console.warn('localStorage quota exceeded for grid posts.');
+        const reduced = gridPosts.slice(0, 20);
+        setGridPosts(reduced);
+        localStorage.setItem(STORAGE_KEY_GRID, JSON.stringify(reduced));
       }
     }
-  }, [posts]);
+  }, [gridPosts]);
+
+  // Save reels posts to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY_REELS, JSON.stringify(reelsPosts));
+    } catch (error) {
+      if (error.name === 'QuotaExceededError') {
+        console.warn('localStorage quota exceeded for reels posts.');
+        const reduced = reelsPosts.slice(0, 20);
+        setReelsPosts(reduced);
+        localStorage.setItem(STORAGE_KEY_REELS, JSON.stringify(reduced));
+      }
+    }
+  }, [reelsPosts]);
+
+  // Save story posts to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY_STORY, JSON.stringify(storyPosts));
+    } catch (error) {
+      if (error.name === 'QuotaExceededError') {
+        console.warn('localStorage quota exceeded for story posts.');
+        const reduced = storyPosts.slice(0, 20);
+        setStoryPosts(reduced);
+        localStorage.setItem(STORAGE_KEY_STORY, JSON.stringify(reduced));
+      }
+    }
+  }, [storyPosts]);
 
   const compressImage = (file) => {
     return new Promise((resolve) => {
