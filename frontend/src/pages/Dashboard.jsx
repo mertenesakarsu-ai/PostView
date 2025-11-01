@@ -219,19 +219,56 @@ const Dashboard = () => {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* View Mode Tabs */}
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <button
+            onClick={() => handleViewModeChange('grid')}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+              viewMode === 'grid'
+                ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-500/30'
+                : 'bg-gray-900/50 text-gray-400 hover:text-white border border-gray-800'
+            }`}
+          >
+            <Grid3x3 className="w-5 h-5" />
+            Grid
+          </button>
+          <button
+            onClick={() => handleViewModeChange('reels')}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+              viewMode === 'reels'
+                ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-500/30'
+                : 'bg-gray-900/50 text-gray-400 hover:text-white border border-gray-800'
+            }`}
+          >
+            <Film className="w-5 h-5" />
+            Reels
+          </button>
+          <button
+            onClick={() => handleViewModeChange('story')}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+              viewMode === 'story'
+                ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-500/30'
+                : 'bg-gray-900/50 text-gray-400 hover:text-white border border-gray-800'
+            }`}
+          >
+            <ImageIcon className="w-5 h-5" />
+            Story
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left Panel - Upload */}
           <div className="lg:col-span-3">
             <UploadArea onUpload={handleUpload} />
             <div className="mt-6 p-4 bg-gray-900/50 rounded-xl border border-gray-800">
-              <h3 className="text-sm font-semibold mb-2 text-gray-400">Stats</h3>
+              <h3 className="text-sm font-semibold mb-2 text-gray-400">İstatistikler</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Total Posts</span>
+                  <span className="text-gray-500">Toplam Gönderi</span>
                   <span className="font-semibold text-pink-400">{posts.length}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">With Captions</span>
+                  <span className="text-gray-500">Açıklamalı</span>
                   <span className="font-semibold text-purple-400">
                     {posts.filter(p => p.caption).length}
                   </span>
@@ -240,23 +277,23 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Center Panel - Grid */}
-          <div className="lg:col-span-6">
-            <GridView
-              posts={posts}
-              onReorder={handleReorder}
-              onSelectPost={setSelectedPost}
-              selectedPost={selectedPost}
-              onDeletePost={handleDeletePost}
-            />
-          </div>
-
-          {/* Right Panel - Caption Editor */}
-          <div className="lg:col-span-3">
-            <CaptionEditor
-              selectedPost={selectedPost}
-              onUpdateCaption={handleCaptionUpdate}
-            />
+          {/* Center Panel - View Content */}
+          <div className="lg:col-span-9">
+            {viewMode === 'grid' && (
+              <GridView
+                posts={posts}
+                onReorder={handleReorder}
+                onSelectPost={handleSelectPost}
+                selectedPost={selectedPost}
+                onDeletePost={handleDeletePost}
+              />
+            )}
+            {viewMode === 'reels' && (
+              <ReelsView
+                posts={posts}
+                onSelectPost={handleSelectPost}
+              />
+            )}
           </div>
         </div>
       </div>
