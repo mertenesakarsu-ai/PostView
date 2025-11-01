@@ -256,10 +256,11 @@ const Dashboard = () => {
       <header className="border-b border-gray-800 bg-black/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Grid3x3 className="w-6 h-6 text-pink-400" />
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-              PostView
-            </h1>
+            <img 
+              src="https://customer-assets.emergentagent.com/job_5c404b43-a2fd-401c-ad01-c17484d2e425/artifacts/2t21br76_postview.png" 
+              alt="PostView Logo" 
+              className="h-12 w-auto object-contain"
+            />
           </div>
           <div className="flex items-center gap-3">
             <Button
