@@ -418,7 +418,6 @@ const Dashboard = () => {
           posts={currentPosts}
           onClose={() => {
             setShowStoryView(false);
-            setViewMode('grid');
           }}
         />
       )}
