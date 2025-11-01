@@ -6,16 +6,17 @@ import { ScrollArea } from './ui/scroll-area';
 const MobilePreview = ({ posts, onClose }) => {
   return (
     <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      {/* Close Button - Fixed at top right of screen */}
+      <Button
+        onClick={onClose}
+        variant="ghost"
+        size="icon"
+        className="fixed top-6 right-6 text-white hover:bg-red-500 z-[60] bg-gray-800 rounded-full w-12 h-12 border-2 border-white/20 hover:border-red-400 transition-all shadow-xl"
+      >
+        <X className="w-7 h-7" />
+      </Button>
+      
       <div className="relative max-w-[500px] w-full">
-        {/* Close Button */}
-        <Button
-          onClick={onClose}
-          variant="ghost"
-          size="icon"
-          className="absolute -top-16 right-4 text-white hover:bg-red-500/80 z-50 bg-gray-800/80 rounded-full"
-        >
-          <X className="w-6 h-6" />
-        </Button>
 
         {/* Mobile Frame - Larger Size */}
         <div className="w-[450px] h-[900px] bg-black rounded-[3rem] border-[14px] border-gray-900 shadow-2xl overflow-hidden">
