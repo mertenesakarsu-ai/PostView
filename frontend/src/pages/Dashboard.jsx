@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, Smartphone, Download, Trash2, Film, ImageIcon } from 'lucide-react';
+import { Upload, Grid3x3, Smartphone, Download, Trash2, Film, ImageIcon } from 'lucide-react';
 import UploadArea from '../components/UploadArea';
 import GridView from '../components/GridView';
 import ReelsView from '../components/ReelsView';
