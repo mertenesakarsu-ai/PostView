@@ -119,6 +119,18 @@ const Dashboard = () => {
     }
   };
 
+  const handleSelectPost = (post) => {
+    setSelectedPost(post);
+    setShowPostDetail(true);
+  };
+
+  const handleViewModeChange = (mode) => {
+    setViewMode(mode);
+    if (mode === 'story') {
+      setShowStoryView(true);
+    }
+  };
+
   const handleDeletePost = (postId) => {
     setPosts(posts.filter(post => post.id !== postId));
     if (selectedPost?.id === postId) {
