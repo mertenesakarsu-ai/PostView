@@ -75,19 +75,19 @@ const MobilePreview = ({ posts, onClose }) => {
               </p>
             </div>
 
-            {/* Grid */}
-            <div className="grid grid-cols-3 gap-[1px] bg-gray-900">
+            {/* Grid - Instagram exact proportions */}
+            <div className="grid grid-cols-3 gap-[2px] bg-[#262626]">
               {posts.map((post) => (
-                <div key={post.id} className="aspect-square bg-gray-900 relative group">
+                <div key={post.id} className="aspect-square bg-black relative group overflow-hidden">
                   <img
                     src={post.image}
                     alt="Post"
                     className="w-full h-full object-cover"
                   />
                   {post.caption && (
-                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity p-2 flex items-center justify-center">
-                      <p className="text-white text-[9px] line-clamp-6 text-center">
-                        {post.caption}
+                    <div className="absolute inset-0 bg-black/75 opacity-0 group-hover:opacity-100 transition-opacity p-2 flex items-center justify-center">
+                      <p className="text-white text-[10px] line-clamp-4 text-center leading-tight">
+                        {post.caption.substring(0, 100)}...
                       </p>
                     </div>
                   )}
