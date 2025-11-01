@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Upload, Grid3x3, Smartphone, Download, Trash2 } from 'lucide-react';
+import { Upload, Grid3x3, Smartphone, Download, Trash2, Film, ImageIcon } from 'lucide-react';
 import UploadArea from '../components/UploadArea';
 import GridView from '../components/GridView';
-import CaptionEditor from '../components/CaptionEditor';
+import ReelsView from '../components/ReelsView';
+import StoryView from '../components/StoryView';
+import PostDetailModal from '../components/PostDetailModal';
 import MobilePreview from '../components/MobilePreview';
 import { Button } from '../components/ui/button';
 import { mockPosts } from '../mock';
