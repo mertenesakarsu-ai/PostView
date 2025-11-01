@@ -249,36 +249,6 @@ const Dashboard = () => {
   };
 
   const currentPosts = getCurrentPosts();
-    if (selectedPost?.id === postId) {
-      setSelectedPost(null);
-    }
-  };
-
-  const handleExport = () => {
-    const dataStr = JSON.stringify(posts, null, 2);
-    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'instagram-grid-export.json';
-    link.click();
-  };
-
-  const handleImport = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        try {
-          const importedPosts = JSON.parse(event.target.result);
-          setPosts(importedPosts);
-        } catch (error) {
-          alert('Invalid JSON file');
-        }
-      };
-      reader.readAsText(file);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
