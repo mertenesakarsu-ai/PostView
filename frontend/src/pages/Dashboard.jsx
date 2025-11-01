@@ -184,6 +184,8 @@ const Dashboard = () => {
     setViewMode(mode);
     if (mode === 'story') {
       setShowStoryView(true);
+    } else {
+      setShowStoryView(false);
     }
   };
 
