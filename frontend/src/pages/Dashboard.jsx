@@ -261,7 +261,8 @@ const Dashboard = () => {
             <img 
               src="https://customer-assets.emergentagent.com/job_design-adder/artifacts/sp6zpy92_postview.png" 
               alt="PostView Logo" 
-              className="h-20 w-auto object-contain"
+              className="h-32 w-auto object-contain scale-150"
+              style={{ imageRendering: 'crisp-edges' }}
             />
           </div>
           <div className="flex items-center gap-3">
