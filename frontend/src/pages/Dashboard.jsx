@@ -19,6 +19,9 @@ const Dashboard = () => {
   });
   const [selectedPost, setSelectedPost] = useState(null);
   const [showMobilePreview, setShowMobilePreview] = useState(false);
+  const [viewMode, setViewMode] = useState('grid'); // 'grid', 'reels', 'story'
+  const [showStoryView, setShowStoryView] = useState(false);
+  const [showPostDetail, setShowPostDetail] = useState(false);
 
   // Save posts to localStorage whenever they change
   useEffect(() => {
