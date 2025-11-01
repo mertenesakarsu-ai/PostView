@@ -172,7 +172,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-3">
             <Grid3x3 className="w-6 h-6 text-pink-400" />
             <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
-              MEA - Instagram View
+              PostView
             </h1>
           </div>
           <div className="flex items-center gap-3">
