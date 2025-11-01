@@ -40,26 +40,5 @@ export const mockPosts = [
     caption: 'SILENCE 🌊 Find your peace on the open water #YachtLife #TravelGoals',
     views: 945,
     isVideo: false
-  },
-  {
-    id: 7,
-    image: 'https://images.unsplash.com/photo-1562281302-809108fd533c?w=400&h=400&fit=crop',
-    caption: 'Deck life ⚓ Relax under the Mediterranean sun #LuxuryYacht #VacationMode',
-    views: 678,
-    isVideo: false
-  },
-  {
-    id: 8,
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=400&fit=crop',
-    caption: 'Crystal clear waters await 💙 Book your voyage today! #FethiyeYacht #TurkeyTravel',
-    views: 812,
-    isVideo: false
-  },
-  {
-    id: 9,
-    image: 'https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?w=400&h=400&fit=crop',
-    caption: 'Your floating palace 🏰 Queen Atlantis ready to set sail #CharterYacht #LuxuryAdventure',
-    views: 934,
-    isVideo: false
   }
 ];
