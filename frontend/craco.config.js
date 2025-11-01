@@ -35,6 +35,12 @@ const webpackConfig = {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
+      // Fix core-js-pure missing module issue
+      webpackConfig.resolve = webpackConfig.resolve || {};
+      webpackConfig.resolve.fallback = {
+        ...webpackConfig.resolve.fallback,
+        'core-js-pure/features/global-this': false,
+      };
 
       // Disable hot reload completely if environment variable is set
       if (config.disableHotReload) {
