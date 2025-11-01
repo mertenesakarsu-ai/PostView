@@ -1,0 +1,180 @@
+import React, { useState } from 'react';
+import { Upload, Grid3x3, Smartphone, Download, Trash2 } from 'lucide-react';
+import UploadArea from '../components/UploadArea';
+import GridView from '../components/GridView';
+import CaptionEditor from '../components/CaptionEditor';
+import MobilePreview from '../components/MobilePreview';
+import { Button } from '../components/ui/button';
+import { mockPosts } from '../mock';
+
+const Dashboard = () => {
+  const [posts, setPosts] = useState(mockPosts);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [showMobilePreview, setShowMobilePreview] = useState(false);
+
+  const handleUpload = (files) => {
+    const newPosts = files.map((file, index) => ({
+      id: Date.now() + index,
+      image: URL.createObjectURL(file),
+      caption: '',
+      views: Math.floor(Math.random() * 1000),
+      isVideo: file.type.startsWith('video/')
+    }));
+    setPosts([...newPosts, ...posts]);
+  };
+
+  const handleReorder = (newPosts) => {
+    setPosts(newPosts);
+  };
+
+  const handleCaptionUpdate = (postId, newCaption) => {
+    setPosts(posts.map(post => 
+      post.id === postId ? { ...post, caption: newCaption } : post
+    ));
+    if (selectedPost?.id === postId) {
+      setSelectedPost({ ...selectedPost, caption: newCaption });
+    }
+  };
+
+  const handleDeletePost = (postId) => {
+    setPosts(posts.filter(post => post.id !== postId));
+    if (selectedPost?.id === postId) {
+      setSelectedPost(null);
+    }
+  };
+
+  const handleExport = () => {
+    const dataStr = JSON.stringify(posts, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'instagram-grid-export.json';
+    link.click();
+  };
+
+  const handleImport = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const importedPosts = JSON.parse(event.target.result);
+          setPosts(importedPosts);
+        } catch (error) {
+          alert('Invalid JSON file');
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] text-white">
+      {/* Header */}
+      <header className="border-b border-gray-800 bg-black/50 backdrop-blur-sm sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Grid3x3 className="w-6 h-6 text-pink-400" />
+            <h1 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+              Vibe Coding
+            </h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowMobilePreview(true)}
+              className="border-gray-700 hover:border-pink-400 transition-colors"
+            >
+              <Smartphone className="w-4 h-4 mr-2" />
+              Preview
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleExport}
+              className="border-gray-700 hover:border-purple-400 transition-colors"
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export
+            </Button>
+            <label>
+              <input
+                type="file"
+                accept=".json"
+                onChange={handleImport}
+                className="hidden"
+              />
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-gray-700 hover:border-blue-400 transition-colors cursor-pointer"
+                asChild
+              >
+                <span>
+                  <Upload className="w-4 h-4 mr-2" />
+                  Import
+                </span>
+              </Button>
+            </label>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left Panel - Upload */}
+          <div className="lg:col-span-3">
+            <UploadArea onUpload={handleUpload} />
+            <div className="mt-6 p-4 bg-gray-900/50 rounded-xl border border-gray-800">
+              <h3 className="text-sm font-semibold mb-2 text-gray-400">Stats</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Total Posts</span>
+                  <span className="font-semibold text-pink-400">{posts.length}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">With Captions</span>
+                  <span className="font-semibold text-purple-400">
+                    {posts.filter(p => p.caption).length}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Center Panel - Grid */}
+          <div className="lg:col-span-6">
+            <GridView
+              posts={posts}
+              onReorder={handleReorder}
+              onSelectPost={setSelectedPost}
+              selectedPost={selectedPost}
+              onDeletePost={handleDeletePost}
+            />
+          </div>
+
+          {/* Right Panel - Caption Editor */}
+          <div className="lg:col-span-3">
+            <CaptionEditor
+              selectedPost={selectedPost}
+              onUpdateCaption={handleCaptionUpdate}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Preview Modal */}
+      {showMobilePreview && (
+        <MobilePreview
+          posts={posts}
+          onClose={() => setShowMobilePreview(false)}
+        />
+      )}
+    </div>
+  );
+};
+
+export default Dashboard;
