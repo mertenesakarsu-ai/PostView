@@ -146,6 +146,16 @@ const Dashboard = () => {
     } else if (viewMode === 'story') {
       setStoryPosts([...newPosts, ...storyPosts]);
     }
+    
+    // Show success notification
+    const modeText = viewMode === 'grid' ? 'Grid' : viewMode === 'reels' ? 'Reels' : 'Story';
+    setUploadNotification({
+      message: `✅ ${newPosts.length} görsel ${modeText} moduna eklendi!`,
+      type: 'success'
+    });
+    
+    // Auto-hide notification after 3 seconds
+    setTimeout(() => setUploadNotification(null), 3000);
   };
 
   const handleReorder = (newPosts) => {
