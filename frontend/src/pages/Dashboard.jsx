@@ -20,7 +20,24 @@ const Dashboard = () => {
 
   // Save posts to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    } catch (error) {
+      if (error.name === 'QuotaExceededError') {
+        console.warn('localStorage quota exceeded. Keeping only last 20 posts.');
+        // Keep only the most recent 20 posts
+        const reducedPosts = posts.slice(0, 20);
+        setPosts(reducedPosts);
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(reducedPosts));
+        } catch (e) {
+          console.error('Still unable to save to localStorage:', e);
+          // Clear localStorage and save reduced set
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(reducedPosts));
+        }
+      }
+    }
   }, [posts]);
 
   const compressImage = (file) => {
