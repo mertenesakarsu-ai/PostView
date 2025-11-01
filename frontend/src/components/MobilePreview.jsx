@@ -76,7 +76,7 @@ const MobilePreview = ({ posts, onClose }) => {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-3 gap-1">
+            <div className="grid grid-cols-3 gap-[1px] bg-gray-900">
               {posts.map((post) => (
                 <div key={post.id} className="aspect-square bg-gray-900 relative group">
                   <img
